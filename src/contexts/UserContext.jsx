@@ -1,4 +1,4 @@
-import axios from "axios";
+import { fetchUser } from "../services/api";
 import React, { useState, useEffect, createContext } from "react";
 
 export const UserContext = createContext(null);
@@ -9,16 +9,14 @@ export const UserProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchUser();
+    fetchUserData();
   }, []);
 
-  const fetchUser = async () => {
+  const fetchUserData = async () => {
     try {
       setLoading(true);
-      const { data: user } = await axios.get(
-        "https://be-airbnc-mc37.onrender.com/api/users/2"
-      );
-      setUser(user);
+      const userData = await fetchUser(2);
+      setUser(userData);
       setError(null);
     } catch (err) {
       setError("Failed to fetch user data");
