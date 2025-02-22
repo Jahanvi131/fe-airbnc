@@ -1,8 +1,16 @@
+import { Link } from "react-router-dom";
+
 const PropertyCard = ({ prop }) => {
   return (
     <li>
       <div className="image-container">
-        <img src={prop.image} alt={prop.property_name} />
+        <Link
+          to={{
+            pathname: `/property/${prop.property_id}`,
+          }}
+        >
+          <img src={prop.image} alt={prop.property_name} />
+        </Link>
         <button className="favorite-button">♡</button>
       </div>
       <div className="property-info">

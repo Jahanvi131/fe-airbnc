@@ -6,6 +6,9 @@ import { useSearchParams } from "react-router-dom";
 const PropertyList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const property_typeFromQuery = searchParams.get("property_type");
+  const min_priceFromQuery = searchParams.get("minprice");
+  const max_priceFromQuery = searchParams.get("maxprice");
+  const sortFromQuery = searchParams.get("sort");
   const [propertyList, setpropertyList] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +21,12 @@ const PropertyList = () => {
   const fetchProperties = async () => {
     try {
       setIsLoading(true);
-      const response = await fetchPropertyList(property_typeFromQuery);
+      const response = await fetchPropertyList(
+        property_typeFromQuery,
+        min_priceFromQuery,
+        max_priceFromQuery,
+        sortFromQuery
+      );
       if (response.success) {
         setpropertyList(response.data.properties);
         setError(null);

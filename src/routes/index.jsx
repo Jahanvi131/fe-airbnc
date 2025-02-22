@@ -10,6 +10,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/properties" element={<Home />} />
       <Route path="/property/:id" element={<SingleProperty />} />
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/trips" element={<Trips />} />

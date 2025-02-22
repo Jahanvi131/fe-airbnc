@@ -80,7 +80,7 @@
 }
 
 .property-type-item {
-  background-color: #f3f4f6;
+  background-color: var(--color-gray-200);
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-size: 0.875rem;
@@ -90,8 +90,14 @@
 }
 
 .property-type-item:hover {
-  background-color: #e5e7eb;
+  background-color: var(--color-gray-400);
+  color: var(--color-white);
   transform: translateY(-1px);
+}
+
+.property-type-selected {
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .property-type-link {
@@ -115,7 +121,6 @@
   position: relative;
   aspect-ratio: 4/3;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .image-container img {

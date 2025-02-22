@@ -28,12 +28,32 @@ export const fetchPropertyTypeList = async () => {
   }
 };
 
-export const fetchPropertyList = async (property_type) => {
+export const fetchPropertyList = async (
+  property_type,
+  minprice,
+  maxprice,
+  sort
+) => {
   try {
     // Construct query string dynamically
     const queryParams = new URLSearchParams();
     if (property_type && property_type !== "all") {
       queryParams.append("property_type", property_type);
+    }
+    if (minprice) {
+      queryParams.append("minprice", minprice);
+    }
+    if (maxprice) {
+      queryParams.append("maxprice", maxprice);
+    }
+    if (sort) {
+      if (sort.startsWith("price")) {
+        queryParams.append("sort", "price_per_night");
+      } else {
+        queryParams.append("sort", "popularity");
+      }
+      const order = fetchOrderFromSortValue(sort);
+      queryParams.append("order", order);
     }
     const { data } = await axios.get(
       `${API_BASE_URL}/properties?${queryParams.toString()}`
@@ -50,4 +70,14 @@ export const fetchPropertyList = async (property_type) => {
       error: err.response?.data || "",
     };
   }
+};
+
+const fetchOrderFromSortValue = (sortValue) => {
+  let order = "";
+  if (sortValue === "price_low_high") {
+    order = "asc";
+  } else {
+    order = "desc";
+  }
+  return order;
 };
