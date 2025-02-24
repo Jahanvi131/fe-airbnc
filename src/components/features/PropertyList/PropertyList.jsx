@@ -29,7 +29,7 @@ const PropertyList = () => {
       );
       if (response.success) {
         setpropertyList(response.data.properties);
-        setError(null);
+        setError("");
       } else {
         switch (response.status) {
           case 404:

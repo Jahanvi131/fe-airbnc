@@ -7,14 +7,14 @@ import "../../src/components/common/button.css";
 import { updateUser } from "../services/api";
 
 const Profile = () => {
-  const { user, loading } = useContext(UserContext);
+  const { user, loading, updateUserData } = useContext(UserContext);
   const navigate = useNavigate(); // Initialize useNavigate
   // Initialize formData with the user details
   const [formData, setFormData] = useState({
     first_name: "",
     surname: "",
     email: "",
-    phone_number: "",
+    phone: "",
     avatar: "",
   });
   const [error, setError] = useState("");
@@ -26,11 +26,11 @@ const Profile = () => {
         first_name: user.user.first_name || "",
         surname: user.user.surname || "",
         email: user.user.email || "",
-        phone_number: user.user.phone_number || "",
+        phone: user.user.phone_number || "",
         avatar: user.user.avatar || "",
       });
     }
-  }, [user]);
+  }, [user?.user]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -45,8 +45,20 @@ const Profile = () => {
     try {
       e.preventDefault();
       setIsLoading(true);
-      const userData = await updateUser(formData, 2);
-      setFormData(userData);
+      const response = await updateUser(formData, user?.user?.user_id);
+      console.log(response);
+      if (response.success) {
+        setFormData({
+          first_name: response.data.user.first_name || user.user.first_name,
+          surname: response.data.user.surname || user.user.surname,
+          email: response.data.user.email || user.user.email,
+          phone: response.data.user.phone_number || user.user.phone_number,
+          avatar: response.data.user.avatar || user.user.avatar,
+        });
+
+        updateUserData(response.data.user);
+      }
+
       setError(null);
     } catch (err) {
       setError("failed to update profile.");
@@ -93,12 +105,12 @@ const Profile = () => {
           />
         </div>
         <div>
-          <label htmlFor="phone_number">Phone</label>
+          <label htmlFor="phone">Phone</label>
           <input
             type="text"
-            name="phone_number"
-            id="phone_number"
-            value={formData.phone_number}
+            name="phone"
+            id="phone"
+            value={formData.phone}
             onChange={handleChange}
           />
         </div>
@@ -115,7 +127,7 @@ const Profile = () => {
         </div>
         <div>
           <Button> {isloading ? "Saving..." : "Save"}</Button>
-          <Button className="buttonCancel" onClick={handleCancel}>
+          <Button type="button" className="buttonCancel" onClick={handleCancel}>
             Cancel
           </Button>
         </div>

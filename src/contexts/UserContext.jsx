@@ -25,10 +25,21 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const updateUserData = (newUserData) => {
+    setUser((prev) => ({
+      ...prev,
+      user: {
+        ...prev.user,
+        ...newUserData,
+      },
+    }));
+  };
+
   const value = {
     user,
     loading,
     error,
+    updateUserData,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
