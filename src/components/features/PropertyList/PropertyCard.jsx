@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../contexts/UserContext";
+import { createFavourites } from "../../../services/api";
 
 const PropertyCard = ({ prop }) => {
   const { user } = useContext(UserContext);
@@ -10,6 +11,9 @@ const PropertyCard = ({ prop }) => {
       setUserId(user.user.user_id);
     }
   }, [user]);
+  const addToFavourites = async (property_id) => {
+    await createFavourites(property_id, userId);
+  };
   return (
     <li>
       <div className="image-container">
@@ -21,7 +25,14 @@ const PropertyCard = ({ prop }) => {
         >
           <img src={prop.image} alt={prop.property_name} />
         </Link>
-        <button className="favorite-button">♡</button>
+        <button
+          className="favorite-button"
+          onClick={() => {
+            addToFavourites(prop.property_id);
+          }}
+        >
+          ♡
+        </button>
       </div>
       <div className="property-info">
         <p className="location">{prop.location}</p>

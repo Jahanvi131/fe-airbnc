@@ -70,6 +70,16 @@
   border: 1px solid #fee2e2;
 }
 
+.success {
+  color: #2eb55f;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #bef7cc;
+  border-radius: 0.25rem;
+  border: 1px solid #ade8be;
+}
+
 .property-type-list {
   display: flex;
   flex-wrap: wrap;
@@ -141,11 +151,15 @@
   background: transparent;
   border: none;
   color: white;
-  font-size: 24px;
+  font-size: 22px;
   cursor: pointer;
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
+.favorite-button:hover {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
 .location {
   font-weight: 500;
   margin: 4px 0;
@@ -159,7 +173,7 @@
 }
 
 .host {
-  color: #717171;
+  color: var(--color-gray-400);
   margin: 4px 0;
   font-size: 14px;
 }
@@ -186,7 +200,6 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
-  cursor: pointer;
 }
 
 .gallery img:hover {
@@ -225,11 +238,18 @@
 .title {
   font-size: 28px;
   font-weight: 600;
+  margin-left: 10px;
 }
 
 .action-buttons {
   display: flex;
   gap: 16px;
+  margin: 9px 15px;
+}
+
+.action-buttons span {
+  color: var(--color-primary);
+  font-size: 1.5rem;
 }
 .btnReview {
   padding: 8px 16px;
@@ -413,6 +433,97 @@
   width: 1.5rem;
   cursor: pointer;
 }
+
+.priceDelete {
+  display: flex;
+  justify-content: space-between;
+}
+.deleteWishlist {
+  margin: 0 10px;
+}
+
+.input-error {
+  border-color: red;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.error-code {
+  font-size: 120px;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.error-title {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #343a40;
+}
+
+.error-message {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+.spaceship {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 30px;
+  position: relative;
+}
+
+.spaceship-body {
+  position: absolute;
+  width: 100px;
+  height: 60px;
+  background-color: var(--color-gray-400);
+  border-radius: 50px 50px 20px 20px;
+  left: 40px;
+  top: 60px;
+}
+
+.spaceship-window {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  left: 75px;
+  top: 75px;
+}
+
+.spaceship-base {
+  position: absolute;
+  width: 140px;
+  height: 25px;
+  background-color: var(--color-gray-400);
+  border-radius: 10px;
+  left: 20px;
+  top: 115px;
+}
+
+.beam {
+  position: absolute;
+  width: 30px;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-gray-400),
+    rgba(108, 99, 255, 0)
+  );
+  left: 75px;
+  top: 130px;
+  border-radius: 15px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .editProfileForm {
@@ -440,5 +551,17 @@
 
   .main-image {
     grid-row: span 1;
+  }
+
+  .error-code {
+    font-size: 80px;
+  }
+
+  .error-title {
+    font-size: 22px;
+  }
+
+  .error-message {
+    font-size: 16px;
   }
 }

@@ -1,4 +1,9 @@
 import axios from "axios";
+import {
+  fetchQueryString,
+  getSuccessResponse,
+  getErrorResponse,
+} from "../utils/response";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const fetchUser = async (userId) => {
@@ -13,11 +18,7 @@ export const fetchUser = async (userId) => {
 export const updateUser = async (user, userId) => {
   try {
     const { data } = await axios.patch(`${API_BASE_URL}/users/${userId}`, user);
-    return {
-      success: true,
-      data: data,
-      status: 200,
-    };
+    return getSuccessResponse(data);
   } catch (error) {
     throw new Error("Failed to fetch user data");
   }
@@ -49,17 +50,9 @@ export const fetchPropertyList = async (
     const { data } = await axios.get(
       `${API_BASE_URL}/properties?${queryParams.toString()}`
     );
-    return {
-      success: true,
-      data: data,
-      status: 200,
-    };
+    return getSuccessResponse(data);
   } catch (err) {
-    return {
-      success: false,
-      status: err.response?.status || 500,
-      error: err.response?.data || "",
-    };
+    return getErrorResponse(err);
   }
 };
 
@@ -71,17 +64,9 @@ export const fetchPropertyById = async (property_id, user_id) => {
     }
 
     const { data } = await axios.get(api_endpoint);
-    return {
-      success: true,
-      data: data,
-      status: 200,
-    };
+    return getSuccessResponse(data);
   } catch (err) {
-    return {
-      success: false,
-      status: err.response?.status || 500,
-      error: err.response?.data || "",
-    };
+    return getErrorResponse(err);
   }
 };
 
@@ -90,65 +75,51 @@ export const fetchReviewsByPropertyId = async (property_id) => {
     const { data } = await axios.get(
       `${API_BASE_URL}/properties/${property_id}/reviews`
     );
-    return {
-      success: true,
-      data: data,
-      status: 200,
-    };
+    return getSuccessResponse(data);
   } catch (err) {
-    return {
-      success: false,
-      status: err.response?.status || 500,
-      error: err.response?.data || "",
-    };
+    return getErrorResponse(err);
   }
 };
 
 export const deleteReviewById = async (review_id) => {
   try {
     const { data } = await axios.delete(`${API_BASE_URL}/reviews/${review_id}`);
-    return {
-      success: true,
-      data: data,
-      status: 200,
-    };
+    return getSuccessResponse(data);
   } catch (err) {
-    return {
-      success: false,
-      status: err.response?.status || 500,
-      error: err.response?.data || "",
-    };
+    return getErrorResponse(err);
   }
 };
-const fetchQueryString = (property_type, minprice, maxprice, sort) => {
-  // Construct query string dynamically
-  const queryParams = new URLSearchParams();
-  if (property_type && property_type !== "all") {
-    queryParams.append("property_type", property_type);
+
+export const createFavourites = async (property_id, guest_id) => {
+  try {
+    const { data } = await axios.post(
+      `${API_BASE_URL}/properties/${property_id}/favourite`,
+      { guest_id }
+    );
+    return getSuccessResponse(data);
+  } catch (err) {
+    return getErrorResponse(err);
   }
-  if (minprice) {
-    queryParams.append("minprice", minprice);
-  }
-  if (maxprice) {
-    queryParams.append("maxprice", maxprice);
-  }
-  if (sort) {
-    if (sort.startsWith("price")) {
-      queryParams.append("sort", "price_per_night");
-    } else {
-      queryParams.append("sort", "popularity");
-    }
-    const order = fetchOrderFromSortValue(sort);
-    queryParams.append("order", order);
-  }
-  return queryParams;
 };
-const fetchOrderFromSortValue = (sortValue) => {
-  let order = "";
-  if (sortValue === "price_low_high") {
-    order = "asc";
-  } else {
-    order = "desc";
+
+export const fetchFavouritesByUserId = async (guest_id) => {
+  try {
+    const { data } = await axios.get(
+      `${API_BASE_URL}/users/${guest_id}/favourites`
+    );
+    return getSuccessResponse(data);
+  } catch (err) {
+    return getErrorResponse(err);
   }
-  return order;
+};
+
+export const deleteFavouriteById = async (favourite_id) => {
+  try {
+    const { data } = await axios.delete(
+      `${API_BASE_URL}/favourites/${favourite_id}`
+    );
+    return getSuccessResponse(data);
+  } catch (err) {
+    return getErrorResponse(err);
+  }
 };

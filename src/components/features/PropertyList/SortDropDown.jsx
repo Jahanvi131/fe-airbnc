@@ -13,7 +13,7 @@ const SortDropdown = () => {
   };
 
   const sortOptions = [
-    { value: "popularity", label: "Popularity" },
+    { value: "popularity", label: "Most Popular" },
     { value: "price_low_high", label: "Price: Low to High" },
     { value: "price_high_low", label: "Price: High to Low" },
   ];

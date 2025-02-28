@@ -81,20 +81,14 @@ const SingleProperty = () => {
       setLoading(false);
     }
   };
-  if (!propertyDetails)
-    return <p className="error">No property details were found</p>;
+  if (!propertyDetails) return <p>loading...</p>;
   return (
     <>
       {error && <p className="error">{error}</p>}
-      {loading && <p>loading...</p>}
       <div className="PropertyTitle">
         <h1 className="title">{propertyDetails?.property_name || ""}</h1>
         <div className="action-buttons">
-          <span>
-            {propReviews.length}
-            {propReviews.length === 1 ? " Review" : " Reviews"}
-          </span>
-          <span>{propertyDetails.favourited ? "♥" : "♡"} Save</span>
+          <span>{propertyDetails.favourited ? "♥" : "♡"}</span>
         </div>
       </div>
       <Image_Gallery images={propertyDetails?.images || []} />
@@ -107,6 +101,8 @@ const SingleProperty = () => {
         propreviews={propReviews}
         rating={avg_rating}
         loggedinuser={userIdFromQuery}
+        isLoading={isLoading}
+        error={errorMsg}
       />
     </>
   );

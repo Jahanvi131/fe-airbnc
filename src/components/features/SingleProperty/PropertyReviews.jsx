@@ -3,11 +3,16 @@ import { deleteReviewById } from "../../../services/api";
 import { useState, useEffect } from "react";
 import deleteicon from "../../../assets/delete-icon.svg";
 
-const PropertyReviews = ({ propreviews, rating, loggedinuser }) => {
+const PropertyReviews = ({
+  propreviews,
+  rating,
+  loggedinuser,
+  error,
+  isLoading,
+}) => {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [reviews, setReviews] = useState(propreviews);
-  console.log(reviews);
   const months = [
     "Jan",
     "Feb",
@@ -55,48 +60,52 @@ const PropertyReviews = ({ propreviews, rating, loggedinuser }) => {
     }
   };
   return (
-    <div className="review-container">
-      <h3>Reviews</h3>
-      {reviews.length === 0 && <div>no reviews yet</div>}
-      {reviews.map((review) => {
-        return (
-          <div className="review-item" key={review.review_id}>
-            <img
-              src={review.guest_avatar}
-              alt="Sam"
-              className="reviewer-avatar"
-            />
-            <div className="review-content">
-              <h4 className="reviewer-name">{review.guest}</h4>
-              <div className="review-meta">
-                <StarRating rating={rating} />
-                <span className="review-date">
-                  {months[new Date(review.created_at).getMonth()]}{" "}
-                  {new Date(review.created_at).getFullYear()}
-                </span>
+    <>
+      {isLoading && <p>Loading...</p>}
+      {error && <p className="error">{error}</p>}
+      <div className="review-container">
+        <h3>Reviews</h3>
+        {reviews.length === 0 && <div>no reviews yet</div>}
+        {reviews.map((review) => {
+          return (
+            <div className="review-item" key={review.review_id}>
+              <img
+                src={review.guest_avatar}
+                alt="Sam"
+                className="reviewer-avatar"
+              />
+              <div className="review-content">
+                <h4 className="reviewer-name">{review.guest}</h4>
+                <div className="review-meta">
+                  <StarRating rating={rating} />
+                  <span className="review-date">
+                    {months[new Date(review.created_at).getMonth()]}{" "}
+                    {new Date(review.created_at).getFullYear()}
+                  </span>
+                </div>
+                <p className="review-text">{review.comment}</p>
+                {loggedinuser &&
+                  review?.guest_id &&
+                  parseInt(loggedinuser) === review.guest_id && (
+                    <a
+                      onClick={() => {
+                        handleDelete(review.review_id);
+                      }}
+                    >
+                      <img
+                        className="remove-review"
+                        src={deleteicon}
+                        alt="delete"
+                      />
+                    </a>
+                  )}
+                {errorMsg && <p className="error">{errorMsg}</p>}
               </div>
-              <p className="review-text">{review.comment}</p>
-              {loggedinuser &&
-                review?.guest_id &&
-                parseInt(loggedinuser) === review.guest_id && (
-                  <a
-                    onClick={() => {
-                      handleDelete(review.review_id);
-                    }}
-                  >
-                    <img
-                      className="remove-review"
-                      src={deleteicon}
-                      alt="delete"
-                    />
-                  </a>
-                )}
-              {errorMsg && <p className="error">{errorMsg}</p>}
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 
