@@ -473,6 +473,11 @@
   line-height: 1.6;
 }
 
+.no-item-message {
+  font-size: 17px;
+  color: #6c757d;
+  margin: 11px 12px;
+}
 .spaceship {
   width: 180px;
   height: 180px;

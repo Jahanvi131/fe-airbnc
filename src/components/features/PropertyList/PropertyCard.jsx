@@ -1,18 +1,30 @@
-import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../../contexts/UserContext";
 import { createFavourites } from "../../../services/api";
+import { useEffect, useState } from "react";
 
-const PropertyCard = ({ prop }) => {
-  const { user } = useContext(UserContext);
-  const [userId, setUserId] = useState(0);
+const PropertyCard = ({ prop, userId, onFavoriteChange }) => {
+  console.log(prop.favourited);
+  const [isFavorited, setIsFavorited] = useState(prop.favourited);
+
   useEffect(() => {
-    if (user?.user) {
-      setUserId(user.user.user_id);
-    }
-  }, [user]);
+    setIsFavorited(prop.favourited);
+  }, [prop.favourited]);
   const addToFavourites = async (property_id) => {
-    await createFavourites(property_id, userId);
+    // Optimistically update UI
+    const newFavoriteStatus = true;
+    setIsFavorited(newFavoriteStatus);
+
+    // Notify parent component about the change
+    onFavoriteChange(property_id, newFavoriteStatus);
+    try {
+      await createFavourites(property_id, userId);
+    } catch {
+      const originalStatus = prop.favourited;
+      setIsFavorited(originalStatus);
+
+      // Notify parent about the reversion
+      onFavoriteChange(property_id, originalStatus);
+    }
   };
   return (
     <li>
@@ -30,8 +42,14 @@ const PropertyCard = ({ prop }) => {
           onClick={() => {
             addToFavourites(prop.property_id);
           }}
+          style={{
+            color: isFavorited ? "var(--color-primary)" : "",
+            transition: "color 0.2s ease",
+            cursor: isFavorited ? "none" : "pointer",
+            opacity: isFavorited ? 1.7 : 2,
+          }}
         >
-          ♡
+          {prop.favourited ? "♥" : "♡"}
         </button>
       </div>
       <div className="property-info">
