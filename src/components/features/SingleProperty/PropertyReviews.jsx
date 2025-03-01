@@ -2,6 +2,7 @@ import StarRating from "../../common/StarRating";
 import { deleteReviewById } from "../../../services/api";
 import { useState, useEffect } from "react";
 import deleteicon from "../../../assets/delete-icon.svg";
+import { useLocation } from "react-router-dom";
 
 const PropertyReviews = ({
   propreviews,
@@ -10,6 +11,7 @@ const PropertyReviews = ({
   error,
   isLoading,
 }) => {
+  const location = useLocation();
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [reviews, setReviews] = useState(propreviews);
@@ -27,6 +29,19 @@ const PropertyReviews = ({
     "Nov",
     "Dec",
   ];
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 0);
+    }
+  }, [location.hash]);
+
   useEffect(() => {
     setReviews(propreviews || []);
   }, [propreviews]);
@@ -52,7 +67,7 @@ const PropertyReviews = ({
             setErrorMsg("Server error occurred. Please try again later");
             break;
           default:
-            setErrorMsg("An error occurred while deleteing reviews");
+            setErrorMsg("An error occurred while deleting reviews");
         }
         setSuccessMsg("");
       }
@@ -63,7 +78,7 @@ const PropertyReviews = ({
     <>
       {isLoading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
-      <div className="review-container">
+      <div id="review" className="review-container">
         <h3>Reviews</h3>
         {reviews.length === 0 && <div>no reviews yet</div>}
         {reviews.map((review) => {

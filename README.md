@@ -19,13 +19,14 @@
   - utils/
   - styles/
 
-- created routes for available pages :
+- created routes for available pages:
 
   1.  Home
   2.  View single property details
   3.  View/Update your profile
   4.  Wishlists
   5.  Trips
+  6.  NotFound
 
 - tried to explore and add various react hooks to improve the user experience.
   1.  useState

@@ -1,13 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import PropertyAmenities from "./PropertyAmenities";
 
 const PropertySummary = ({ propdetails, avg_rating, prop_review_counts }) => {
+  const navigate = useNavigate();
+  const goToReview = () => {
+    navigate("#review");
+  };
   return (
     <div className="property-info-container">
       <div className="property-summary">
         <h2 className="PropertyLocation">{propdetails.location}</h2>
         <div className="rating-summary">
           <span className="star-icon">★ {avg_rating}</span>
-          <button className="btnReview">
+          <button className="btnReview" onClick={goToReview}>
             {prop_review_counts}
             {prop_review_counts === 1 ? " Review" : " Reviews"}
           </button>
