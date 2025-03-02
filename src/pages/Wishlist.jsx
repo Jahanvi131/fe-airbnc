@@ -25,7 +25,7 @@ const Wishlist = () => {
   }, [user]);
 
   // get api call for favourites
-  const fetchWishlist = async (user) => {
+  const fetchWishlist = async () => {
     try {
       setIsLoading(true);
       const response = await fetchFavouritesByUserId(user?.user.user_id);

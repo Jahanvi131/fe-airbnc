@@ -14,7 +14,6 @@ const WishlistPropertyCard = ({ prop, userId, onDelete }) => {
         setErrorMsg("");
         onDelete(fav_id);
       } else {
-        setReviews(originalReviews);
         switch (response.status) {
           case 404:
             setErrorMsg("No property found");

@@ -166,7 +166,19 @@
   font-size: 16px;
 }
 
+.bookedProp {
+  font-weight: 500;
+  margin: 4px 0;
+  font-size: 16px;
+}
+
 .propName {
+  color: #717171;
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.bookingDate {
   color: #717171;
   margin: 4px 0;
   font-size: 14px;
@@ -296,7 +308,22 @@
 .host-name {
   font-weight: 500;
 }
-
+.linkCancel {
+  text-decoration: underline;
+  color: var(--color-gray-700);
+}
+.reviewlinktext {
+  color: var(--color-gray-700);
+}
+.linkReview {
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+.btnProfile {
+  display: flex;
+  align-content: flex-end;
+  justify-content: flex-end;
+}
 .desc {
   border-width: 50%;
   border-top: solid var(--color-gray-200);

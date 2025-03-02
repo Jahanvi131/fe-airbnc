@@ -34,6 +34,7 @@ const Profile = () => {
   });
 
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [isloading, setIsLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -97,8 +98,8 @@ const Profile = () => {
           phone: response.data.user.phone_number || user.user.phone_number,
           avatar: response.data.user.avatar || user.user.avatar,
         });
-
         updateUserData(response.data.user);
+        showSuccessMsg("profile updated successfully");
       }
 
       setError(null);
@@ -111,6 +112,14 @@ const Profile = () => {
 
   const handleCancel = () => {
     navigate("/");
+  };
+
+  const showSuccessMsg = (message) => {
+    setSuccessMsg(message);
+
+    setTimeout(() => {
+      setSuccessMsg("");
+    }, 5000); // 5 sec
   };
   return (
     !loading && (
@@ -176,7 +185,7 @@ const Profile = () => {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="btnProfile">
           <Button disabled={isDisabled}>
             {isloading ? "Saving..." : "Save"}
           </Button>
@@ -185,6 +194,7 @@ const Profile = () => {
           </Button>
         </div>
         {error && <p className="error">{error}</p>}
+        {successMsg && <p className="success">{successMsg}</p>}
       </form>
     )
   );

@@ -9,13 +9,13 @@ const NoPropertyFound = ({ pageName }) => {
   };
   return (
     <div className="no-item-container">
-      <p class="no-item-message">
+      <p className="no-item-message">
         Oops!{" "}
         {pageName === "wishlist"
           ? "No property found in your wishlist. Add now."
-          : "No booking yet. Explore the properties now."}
+          : "No trips yet. Explore the properties now."}
       </p>
-      <Button onClick={goBackToHome} class="back-button">
+      <Button onClick={goBackToHome} className="back-button">
         Back to Home
       </Button>
     </div>

@@ -8,20 +8,20 @@ const NotFound = () => {
     navigate("/");
   };
   return (
-    <div class="container">
-      <div class="spaceship">
-        <div class="spaceship-body"></div>
-        <div class="spaceship-window"></div>
-        <div class="spaceship-base"></div>
-        <div class="beam"></div>
+    <div className="container">
+      <div className="spaceship">
+        <div className="spaceship-body"></div>
+        <div className="spaceship-window"></div>
+        <div className="spaceship-base"></div>
+        <div className="beam"></div>
       </div>
-      <div class="error-code">404</div>
-      <h1 class="error-title">Page Not Found</h1>
-      <p class="error-message">
+      <div className="error-code">404</div>
+      <h1 className="error-title">Page Not Found</h1>
+      <p className="error-message">
         Oops! The page you're looking for seems to have been abducted by aliens
         or never existed in the first place.
       </p>
-      <Button onClick={goBackToHome} class="back-button">
+      <Button onClick={goBackToHome} className="back-button">
         Back to Home
       </Button>
     </div>

@@ -3,7 +3,6 @@ import { createFavourites } from "../../../services/api";
 import { useEffect, useState } from "react";
 
 const PropertyCard = ({ prop, userId, onFavoriteChange }) => {
-  console.log(prop.favourited);
   const [isFavorited, setIsFavorited] = useState(prop.favourited);
 
   useEffect(() => {

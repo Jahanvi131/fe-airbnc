@@ -56,7 +56,6 @@ export const fetchPropertyList = async (
         },
       }
     );
-    console.log(data);
     return getSuccessResponse(data);
   } catch (err) {
     return getErrorResponse(err);
@@ -124,6 +123,41 @@ export const deleteFavouriteById = async (favourite_id) => {
   try {
     const { data } = await axios.delete(
       `${API_BASE_URL}/favourites/${favourite_id}`
+    );
+    return getSuccessResponse(data);
+  } catch (err) {
+    return getErrorResponse(err);
+  }
+};
+
+export const createReviews = async (property_id, reviewData) => {
+  console.log(property_id, reviewData);
+  try {
+    const { data } = await axios.post(
+      `${API_BASE_URL}/properties/${property_id}/reviews`,
+      reviewData
+    );
+    return getSuccessResponse(data);
+  } catch (err) {
+    return getErrorResponse(err);
+  }
+};
+
+export const fetchBookingByUserId = async (guest_id) => {
+  try {
+    const { data } = await axios.get(
+      `${API_BASE_URL}/users/${guest_id}/bookings`
+    );
+    return getSuccessResponse(data);
+  } catch (err) {
+    return getErrorResponse(err);
+  }
+};
+
+export const deleteBookingById = async (booking_id) => {
+  try {
+    const { data } = await axios.delete(
+      `${API_BASE_URL}/bookings/${booking_id}`
     );
     return getSuccessResponse(data);
   } catch (err) {
