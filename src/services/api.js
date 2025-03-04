@@ -35,6 +35,7 @@ export const fetchPropertyTypeList = async () => {
 
 export const fetchPropertyList = async (
   property_type,
+  location,
   minprice,
   maxprice,
   sort,
@@ -44,6 +45,7 @@ export const fetchPropertyList = async (
     // Construct query string dynamically
     const queryParams = fetchQueryString(
       property_type,
+      location,
       minprice,
       maxprice,
       sort
@@ -131,7 +133,6 @@ export const deleteFavouriteById = async (favourite_id) => {
 };
 
 export const createReviews = async (property_id, reviewData) => {
-  console.log(property_id, reviewData);
   try {
     const { data } = await axios.post(
       `${API_BASE_URL}/properties/${property_id}/reviews`,
@@ -158,6 +159,29 @@ export const deleteBookingById = async (booking_id) => {
   try {
     const { data } = await axios.delete(
       `${API_BASE_URL}/bookings/${booking_id}`
+    );
+    return getSuccessResponse(data);
+  } catch (err) {
+    return getErrorResponse(err);
+  }
+};
+
+export const createBookings = async (property_id, bookingData) => {
+  try {
+    const { data } = await axios.post(
+      `${API_BASE_URL}/properties/${property_id}/bookings`,
+      bookingData
+    );
+    return getSuccessResponse(data);
+  } catch (err) {
+    return getErrorResponse(err);
+  }
+};
+
+export const fetchBookingByPropertyId = async (property_id) => {
+  try {
+    const { data } = await axios.get(
+      `${API_BASE_URL}/properties/${property_id}/bookings`
     );
     return getSuccessResponse(data);
   } catch (err) {

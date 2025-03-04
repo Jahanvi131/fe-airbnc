@@ -7,6 +7,7 @@ import { UserContext } from "../../../contexts/UserContext";
 const PropertyList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const property_typeFromQuery = searchParams.get("property_type");
+  const locationFromQuery = searchParams.get("location");
   const min_priceFromQuery = searchParams.get("minprice");
   const max_priceFromQuery = searchParams.get("maxprice");
   const sortFromQuery = searchParams.get("sort");
@@ -25,6 +26,7 @@ const PropertyList = () => {
       setIsLoading(true);
       const response = await fetchPropertyList(
         property_typeFromQuery,
+        locationFromQuery,
         min_priceFromQuery,
         max_priceFromQuery,
         sortFromQuery,

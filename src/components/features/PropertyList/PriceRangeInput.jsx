@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 
 const PriceRangeInput = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const updateURL = (priceRange) => {
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set("minprice", priceRange.min);
-    searchParams.set("maxprice", priceRange.max);
-    navigate(`/properties?${searchParams.toString()}`);
-  };
+  const debouncedUpdateURL = useCallback(
+    debounce((priceRange) => {
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set("minprice", priceRange.min);
+      searchParams.set("maxprice", priceRange.max);
+      navigate(`/properties?${searchParams.toString()}`);
+    }, 300),
+    [navigate]
+  );
+
   const [priceRange, setPriceRange] = useState({
     min: 0,
     max: 1000,
@@ -24,6 +29,7 @@ const PriceRangeInput = () => {
       ...prev,
       [handle]: value,
     }));
+    debouncedUpdateURL(priceRange);
   };
 
   useEffect(() => {
@@ -40,10 +46,6 @@ const PriceRangeInput = () => {
       });
     }
   }, [location.search]);
-
-  useEffect(() => {
-    updateURL(priceRange);
-  }, [priceRange]);
 
   const leftThumbPosition = (priceRange.min / maxPrice) * 100;
   const rightThumbPosition = (priceRange.max / maxPrice) * 100;

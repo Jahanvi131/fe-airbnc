@@ -4,6 +4,7 @@ import { fetchPropertyById, fetchReviewsByPropertyId } from "../services/api";
 import Image_Gallery from "../components/features/SingleProperty/PropertyImages";
 import PropertySummary from "../components/features/SingleProperty/PropertySummary";
 import PropertyReviews from "../components/features/SingleProperty/PropertyReviews";
+import PropertyReservation from "../components/features/Bookings/PropertyReservation";
 
 const SingleProperty = () => {
   const { id: property_id } = useParams();
@@ -92,11 +93,17 @@ const SingleProperty = () => {
         </div>
       </div>
       <Image_Gallery images={propertyDetails?.images || []} />
-      <PropertySummary
-        propdetails={propertyDetails}
-        avg_rating={avg_rating}
-        prop_review_counts={propReviews.length}
-      />
+      <div className="inline-block md:flex">
+        <PropertySummary
+          propdetails={propertyDetails}
+          avg_rating={avg_rating}
+          prop_review_counts={propReviews.length}
+        />
+        <PropertyReservation
+          property_id={propertyDetails.property_id}
+          user_id={userIdFromQuery}
+        />
+      </div>
       <PropertyReviews
         propreviews={propReviews}
         rating={avg_rating}

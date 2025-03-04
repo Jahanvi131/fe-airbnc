@@ -48,7 +48,7 @@ const PropertyCard = ({ prop, userId, onFavoriteChange }) => {
             opacity: isFavorited ? 1.7 : 2,
           }}
         >
-          {prop.favourited ? "♥" : "♡"}
+          {isFavorited ? "♥" : "♡"}
         </button>
       </div>
       <div className="property-info">

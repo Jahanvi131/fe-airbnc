@@ -132,7 +132,7 @@ const UserBookedPropertyCard = ({ booking, userId, onDelete }) => {
               {successMsg && <p className="success">{successMsg}</p>}
             </p>
           )}
-          {/* Review Dialog */}
+
           <ReviewDialog
             isOpen={isReviewDialogOpen}
             onClose={() => setIsReviewDialogOpen(false)}

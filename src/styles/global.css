@@ -273,7 +273,14 @@
   gap: 8px;
   text-decoration: underline;
 }
-
+.btntrip {
+  padding: 15px;
+  color: var(--color-gray-700);
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
 .PropertyTitle {
   display: flex;
   justify-content: space-between;
@@ -331,7 +338,6 @@
 }
 
 .property-info-container {
-  width: 50%;
   margin-bottom: 24px;
 }
 
@@ -341,7 +347,6 @@
 }
 
 .amenities-section h3 {
-  margin-top: -10px;
   font-weight: 600;
   margin-bottom: 20px;
   color: #222222;
@@ -372,7 +377,6 @@
 }
 
 .review-container h3 {
-  margin-top: -10px;
   font-weight: 600;
   margin-bottom: 20px;
   color: #222222;

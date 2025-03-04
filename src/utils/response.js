@@ -1,8 +1,17 @@
-export const fetchQueryString = (property_type, minprice, maxprice, sort) => {
+export const fetchQueryString = (
+  property_type,
+  location,
+  minprice,
+  maxprice,
+  sort
+) => {
   // Construct query string dynamically
   const queryParams = new URLSearchParams();
   if (property_type && property_type !== "all") {
     queryParams.append("property_type", property_type);
+  }
+  if (location) {
+    queryParams.append("location", location);
   }
   if (minprice) {
     queryParams.append("minprice", minprice);
