@@ -3,7 +3,9 @@ export const fetchQueryString = (
   location,
   minprice,
   maxprice,
-  sort
+  sort,
+  limit,
+  page
 ) => {
   // Construct query string dynamically
   const queryParams = new URLSearchParams();
@@ -27,6 +29,12 @@ export const fetchQueryString = (
     }
     const order = fetchOrderFromSortValue(sort);
     queryParams.append("order", order);
+  }
+  if (limit) {
+    queryParams.append("limit", limit);
+  }
+  if (page) {
+    queryParams.append("page", page);
   }
   return queryParams;
 };
