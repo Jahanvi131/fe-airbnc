@@ -10,13 +10,15 @@ const PropertySummary = ({ propdetails, avg_rating, prop_review_counts }) => {
     <div className="property-info-container">
       <div className="property-summary">
         <h2 className="PropertyLocation">{propdetails.location}</h2>
-        <div className="rating-summary">
-          <span className="star-icon">★ {avg_rating}</span>
-          <button className="btnReview" onClick={goToReview}>
-            {prop_review_counts}
-            {prop_review_counts === 1 ? " Review" : " Reviews"}
-          </button>
-        </div>
+        {prop_review_counts > 0 && (
+          <div className="rating-summary">
+            <span className="star-icon">★ {avg_rating}</span>
+            <button className="btnReview" onClick={goToReview}>
+              {prop_review_counts}
+              {prop_review_counts === 1 ? " Review" : " Reviews"}
+            </button>
+          </div>
+        )}
       </div>
       <p className="desc">{propdetails.description}</p>
       <div className="PropertyHost">
