@@ -4,6 +4,8 @@ import PropertyCard from "./PropertyCard";
 import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../../contexts/UserContext";
 import LoadingCircle from "../../common/LoadingCircle";
+import Button from "../../common/Button";
+import "../../common/button.css";
 
 const PropertyList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,11 +27,11 @@ const PropertyList = () => {
     setCurrentPage(1);
     setHasMore(true);
     fetchProperties(1);
-  }, [searchParams]);
+  }, [searchParams, user?.user?.user_id]);
 
   // get api call for Properties
   const fetchProperties = async (page) => {
-    if (!hasMore || isLoading) return;
+    if (isLoading) return;
     try {
       setIsLoading(true);
       const response = await fetchPropertyList(
@@ -54,16 +56,16 @@ const PropertyList = () => {
       } else {
         switch (response.status) {
           case 404:
-            setError("No more properties found");
+            ShowError("No more properties found");
             break;
           case 400:
-            setError("Bad request");
+            ShowError("Bad request");
             break;
           case 500:
-            setError("Server error occurred. Please try again later");
+            ShowError("Server error occurred. Please try again later");
             break;
           default:
-            setError("An error occurred while fetching properties");
+            ShowError("An error occurred while fetching properties");
         }
         if (page === 1) {
           setPropertyList([]);
@@ -79,27 +81,6 @@ const PropertyList = () => {
     fetchProperties(currentPage);
   }, [currentPage]);
 
-  // Scroll event handler
-  const handleScroll = () => {
-    // Check if user has scrolled to bottom and there are more properties
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight &&
-      hasMore &&
-      !isLoading
-    ) {
-      // Increment page to load more properties
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [hasMore, isLoading]);
-
   const handleFavoriteChange = (propertyId, isFavorited) => {
     setPropertyList((prevList) =>
       prevList.map((property) =>
@@ -110,6 +91,16 @@ const PropertyList = () => {
     );
   };
 
+  const handlePagination = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const ShowError = (err) => {
+    setError(err);
+    setTimeout(() => {
+      setError("");
+    }, 5000);
+  };
   return (
     <>
       {isLoading && <LoadingCircle />}
@@ -125,6 +116,11 @@ const PropertyList = () => {
           );
         })}
       </ul>
+      {hasMore && (
+        <div className="no-more-property">
+          <Button onClick={handlePagination}>load more</Button>
+        </div>
+      )}
       {!hasMore && error && <p className="no-more-property">{error}</p>}
     </>
   );
