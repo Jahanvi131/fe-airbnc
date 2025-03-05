@@ -5,6 +5,7 @@ import Image_Gallery from "../components/features/SingleProperty/PropertyImages"
 import PropertySummary from "../components/features/SingleProperty/PropertySummary";
 import PropertyReviews from "../components/features/SingleProperty/PropertyReviews";
 import PropertyReservation from "../components/features/Bookings/PropertyReservation";
+import LoadingCircle from "../components/common/LoadingCircle";
 
 const SingleProperty = () => {
   const { id: property_id } = useParams();
@@ -82,7 +83,7 @@ const SingleProperty = () => {
       setLoading(false);
     }
   };
-  if (!propertyDetails) return <p>loading...</p>;
+  if (!propertyDetails) return <LoadingCircle />;
   return (
     <>
       {error && <p className="error">{error}</p>}

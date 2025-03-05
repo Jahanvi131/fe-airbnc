@@ -3,6 +3,7 @@ import { fetchPropertyList } from "../../../services/api";
 import PropertyCard from "./PropertyCard";
 import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../../contexts/UserContext";
+import LoadingCircle from "../../common/LoadingCircle";
 
 const PropertyList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -71,7 +72,7 @@ const PropertyList = () => {
   return (
     <>
       {error && <p className="error">{error}</p>}
-      {isLoading && <p>loading...</p>}
+      {isLoading && <LoadingCircle />}
       <ul className="property-grid">
         {propertyList.map((prop) => {
           return (

@@ -3,6 +3,7 @@ import { UserContext } from "../../src/contexts/UserContext";
 import NoPropertyFound from "../components/features/NoPropertyFound";
 import { fetchBookingByUserId } from "../services/api";
 import UserBookedPropertyCard from "../components/features/Bookings/UserBookedPropertyCard";
+import LoadingCircle from "../components/common/LoadingCircle";
 const Trips = () => {
   const [bookings, setBookings] = useState([]);
   const { user } = useContext(UserContext);
@@ -51,7 +52,7 @@ const Trips = () => {
   return (
     <div>
       {error && <p className="error">{error}</p>}
-      {isLoading && <p>loading...</p>}
+      {isLoading && <LoadingCircle />}
       <h1 className="title">Trips</h1>
       {bookings.length === 0 && <NoPropertyFound pageName={"trips"} />}
       <ul className="property-grid">

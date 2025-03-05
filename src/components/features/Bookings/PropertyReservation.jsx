@@ -76,11 +76,6 @@ const PropertyReservation = ({ property_id, user_id }) => {
       return true;
     }
 
-    //once we select check-in date, disable dates before check-in
-    if (!selectingCheckIn && checkInDate && date < checkInDate) {
-      return true;
-    }
-
     return false;
   };
 
@@ -89,22 +84,24 @@ const PropertyReservation = ({ property_id, user_id }) => {
 
     let classes = [];
 
+    // Check-in date
     if (checkInDate && date.toDateString() === checkInDate.toDateString()) {
-      classes.push("text-[var(--color-primary)] rounded-l");
+      classes.push("custom-checkin-date");
     }
 
+    // Check-out date
     if (checkOutDate && date.toDateString() === checkOutDate.toDateString()) {
-      classes.push("text-[var(--color-primary)] rounded-r");
+      classes.push("custom-checkout-date");
     }
 
-    // Highlight the range between check-in and check-out
+    // Range between dates
     if (
       checkInDate &&
       checkOutDate &&
       date > checkInDate &&
       date < checkOutDate
     ) {
-      classes.push("text-yellow");
+      classes.push("custom-date-range");
     }
 
     return classes.join(" ");
@@ -112,12 +109,23 @@ const PropertyReservation = ({ property_id, user_id }) => {
 
   const handleDateClick = (date) => {
     if (selectingCheckIn) {
+      // Reset if selecting same date
+      if (checkInDate && date.toDateString() === checkInDate.toDateString()) {
+        setCheckInDate(null);
+        return;
+      }
       setCheckInDate(date);
       setCheckOutDate(null);
       setSelectingCheckIn(false);
     } else {
+      // Ensure check-out is after check-in
+      if (date <= checkInDate) {
+        setCheckInDate(date);
+        setCheckOutDate(null);
+        return;
+      }
       setCheckOutDate(date);
-      setShowCalendar(false);
+      // setShowCalendar(false);
       setSelectingCheckIn(true);
     }
   };
@@ -224,8 +232,8 @@ const PropertyReservation = ({ property_id, user_id }) => {
             <div className="flex justify-between mb-2">
               <h3 className="font-medium">
                 {selectingCheckIn
-                  ? "Select check-in date"
-                  : "Select check-out date"}
+                  ? "select check-in date"
+                  : "select check-out date"}
               </h3>
               <button
                 onClick={() => setShowCalendar(false)}
@@ -260,14 +268,18 @@ const PropertyReservation = ({ property_id, user_id }) => {
                 minDate={new Date()}
                 selectRange={false}
                 showNeighboringMonth={false}
-                className="border-0"
+                className="border-0 custom-calendar"
               />
             )}
 
             <div className="mt-2 text-sm text-gray-500">
               <div className="flex items-center">
+                <div className="w-4 h-4 rounded-full bg-[var(--color-primary)] mr-2"></div>
+                <span>selected dates</span>
+              </div>
+              <div className="flex items-center">
                 <div className="w-4 h-4 rounded-full bg-gray-200 mr-2"></div>
-                <span>Unavailable dates</span>
+                <span>unavailable dates</span>
               </div>
             </div>
           </div>

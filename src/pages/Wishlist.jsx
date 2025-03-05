@@ -3,6 +3,7 @@ import { UserContext } from "../../src/contexts/UserContext";
 import { fetchFavouritesByUserId } from "../services/api";
 import WishlistPropertyCard from "../components/features/WishList/WishlistPropertyCard";
 import NoPropertyFound from "../components/features/NoPropertyFound";
+import LoadingCircle from "../components/common/LoadingCircle";
 
 const Wishlist = () => {
   const { user } = useContext(UserContext);
@@ -55,7 +56,7 @@ const Wishlist = () => {
   return (
     <>
       {error && <p className="error">{error}</p>}
-      {isLoading && <p>loading...</p>}
+      {isLoading && <LoadingCircle />}
       <h1 className="title">Wishlists</h1>
       {wishList.length === 0 && <NoPropertyFound pageName={"wishlist"} />}
       <ul className="property-grid">

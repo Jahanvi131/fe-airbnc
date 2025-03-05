@@ -7,7 +7,7 @@ const PropertyCard = ({ prop, userId, onFavoriteChange }) => {
 
   useEffect(() => {
     setIsFavorited(prop.favourited);
-  }, [prop.favourited]);
+  }, [prop]);
   const addToFavourites = async (property_id) => {
     // Optimistically update UI
     const newFavoriteStatus = true;

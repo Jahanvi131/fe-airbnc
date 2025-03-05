@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Image_Gallery = ({ images }) => {
+  const [propImages, setPropImages] = useState(images);
+  useEffect(() => {
+    setPropImages(images.slice(1));
+  }, [images]);
   return (
     <div className="gallery-container">
       <div className="gallery">
@@ -9,7 +13,7 @@ const Image_Gallery = ({ images }) => {
           alt="Main view of property"
           className="main-image"
         />
-        {images.map((img, i) => {
+        {propImages.map((img, i) => {
           return <img key={i} src={img} alt="view of property" />;
         })}
       </div>

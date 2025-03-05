@@ -11,7 +11,6 @@ const SearchDestination = () => {
     setLocation("");
   };
   const updateURL = (value) => {
-    console.log(value);
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set("location", value);
     navigate(`/properties?${searchParams.toString()}`);
