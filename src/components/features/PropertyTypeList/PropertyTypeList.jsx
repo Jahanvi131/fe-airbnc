@@ -37,6 +37,11 @@ const PropertyTypeList = () => {
     }
   };
 
+  const updateURL = (value) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("property_type", value);
+    return searchParams.toString();
+  };
   return (
     <>
       {error && <p className="error">{error}</p>}
@@ -57,7 +62,7 @@ const PropertyTypeList = () => {
             <Link
               to={{
                 pathname: "/properties",
-                search: `?property_type=${propType.property_type}`,
+                search: `${updateURL(propType.property_type)}`,
               }}
               className="property-type-link"
               key={propType.property_type}

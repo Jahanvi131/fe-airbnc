@@ -39,7 +39,9 @@ export const fetchPropertyList = async (
   minprice,
   maxprice,
   sort,
-  userId
+  userId,
+  limit,
+  page
 ) => {
   try {
     // Construct query string dynamically
@@ -48,7 +50,9 @@ export const fetchPropertyList = async (
       location,
       minprice,
       maxprice,
-      sort
+      sort,
+      limit,
+      page
     );
     const { data } = await axios.get(
       `${API_BASE_URL}/properties?${queryParams.toString()}`,
