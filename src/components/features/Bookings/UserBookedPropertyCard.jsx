@@ -127,11 +127,11 @@ const UserBookedPropertyCard = ({ booking, userId, onDelete }) => {
               >
                 post review
               </Link>
-              {error && <p className="error">{error}</p>}
-              {isLoading && <span>Posting...</span>}
-              {successMsg && <p className="success">{successMsg}</p>}
             </p>
           )}
+          {error && <p className="error">{error}</p>}
+          {isLoading && <span>Posting...</span>}
+          {successMsg && <p className="success">{successMsg}</p>}
 
           <ReviewDialog
             isOpen={isReviewDialogOpen}
