@@ -116,7 +116,7 @@ const PropertyList = () => {
           );
         })}
       </ul>
-      {hasMore && (
+      {hasMore && !isLoading && (
         <div className="no-more-property">
           <Button onClick={handlePagination}>load more</Button>
         </div>

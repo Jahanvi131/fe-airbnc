@@ -560,14 +560,6 @@
   border-radius: 15px;
 }
 
-/* .react-calendar {
-  width: 100%;
-  background: white;
-  border: 1px solid #a0a096;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.125em;
-} */
-
 .custom-checkin-date,
 .custom-checkout-date {
   background-color: var(--color-primary) !important;
@@ -587,28 +579,7 @@
   color: var(--color-primary);
   margin-top: 1rem;
 }
-/* 
-.custom-checkin-date::after {
-  content: "Check-in";
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.7em;
-  color: #3182ce;
-}
 
-.custom-checkout-date::after {
-  content: "Check-out";
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.7em;
-  color: #3182ce;
-} */
-
-/* Responsive adjustments */
 @media (max-width: 640px) {
   .editProfileForm {
     padding: 1rem;

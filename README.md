@@ -21,14 +21,15 @@
 
 - created routes for available pages:
 
-  1.  Home
-  2.  View single property details
-  3.  View/Update your profile
-  4.  Wishlists
-  5.  Trips
-  6.  NotFound
+  1.  Home - where you can list of properties with filter and sort functionality
+  2.  View single property details - property details, reviews and reservation
+  3.  View/Update your profile - loggged in user profile view/edit
+  4.  Wishlists - favourited properties you can see here
+  5.  Trips - reserved properties you can see here
+  6.  NotFound - for unknown path
 
 - tried to explore and add various react hooks to improve the user experience.
+
   1.  useState
   2.  useEffect
   3.  useparams
@@ -37,3 +38,5 @@
   6.  useSearchParams
   7.  useLocation
   8.  useRef
+
+- live project url : https://jairbnc.netlify.app/
