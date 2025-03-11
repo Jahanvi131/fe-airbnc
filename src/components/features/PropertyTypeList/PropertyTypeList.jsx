@@ -11,8 +11,11 @@ const PropertyTypeList = () => {
   const [loading, setLoading] = useState(false);
 
   const getAllItemStyle = () => {
-    console.log(loc.search);
-    if (property_typeFromQuery === "all" || loc.search === "") {
+    if (
+      property_typeFromQuery === "all" ||
+      loc.search === "" ||
+      !loc.search.includes("property_type")
+    ) {
       return "property-type-selected";
     }
   };
