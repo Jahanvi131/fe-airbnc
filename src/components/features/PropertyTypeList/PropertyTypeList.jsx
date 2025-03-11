@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
 import { fetchPropertyTypeList } from "../../../services/api";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 const PropertyTypeList = () => {
+  const loc = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const property_typeFromQuery = searchParams.get("property_type");
   const [propertyTypeList, setpropertyTypeList] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const getAllItemStyle = () => {
+    console.log(loc.search);
+    if (property_typeFromQuery === "all" || loc.search === "") {
+      return "property-type-selected";
+    }
+  };
   const getItemStyle = (prop_Type) => {
     const isSelectedPropertyType = propertyTypeList.findIndex(
       (prop) =>
@@ -45,18 +52,19 @@ const PropertyTypeList = () => {
   return (
     <>
       {error && <p className="error">{error}</p>}
-      {loading && <p>loading...</p>}
       <ul className="property-type-list">
-        <Link
-          to={{
-            pathname: "/properties",
-            search: `?property_type=all`,
-          }}
-          className="property-type-link"
-          key="all"
-        >
-          <li className="property-type-item">All</li>
-        </Link>
+        {!loading && (
+          <Link
+            to={{
+              pathname: "/properties",
+              search: `?property_type=all`,
+            }}
+            className="property-type-link"
+            key="all"
+          >
+            <li className={`property-type-item ${getAllItemStyle()}`}>All</li>
+          </Link>
+        )}
         {propertyTypeList.map((propType) => {
           return (
             <Link

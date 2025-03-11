@@ -22,12 +22,12 @@
 }
 
 .copyright {
-  color: #4b5563;
-  font-size: 0.875rem;
+  color: var(--color-gray-400);
+  font-size: 0.8rem;
 }
 
 .github-link {
-  color: #4b5563;
+  color: var(--color-primary);
   transition: color 0.3s ease;
   display: flex;
   align-items: center;
@@ -39,9 +39,15 @@
 }
 
 .github-link:hover {
-  color: #f97316;
+  color: #e0484d;
 }
 
+.created-by {
+  color: var(--color-gray-400);
+}
+.created-by-link:hover {
+  text-decoration: underline;
+}
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .footer-content {
